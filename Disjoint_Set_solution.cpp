@@ -59,34 +59,16 @@ public:
             parents[i] = i;
             ranks[i] = 0;
         }
-
+              int count=n;
         // Union all similar string indices
         for (int i = 0; i < n; i++) {
             for (int j = i + 1; j < n; j++) {
-                if (issimilar(strs[i], strs[j])) {
+                if (issimilar(strs[i], strs[j]) and find(j)!=find(i)) {
                     unite(i, j);
+                       count--;
                 }
             }
         }
-
-        // Find and compress all parents
-        for (int i = 0; i < n; i++) {
-            parents[i] = find(i);
-        }
-
-        // Count unique parents
-        sort(parents.begin(), parents.end());
-        int count = 0;
-        int i = 1;
-        int now = parents[0];
-        while (i < n) {
-            while (i < n && parents[i] == now) {
-                i++;
-            }
-            count++;
-            if (i < n) now = parents[i];
-        }
-
         return count;
     }
 };
